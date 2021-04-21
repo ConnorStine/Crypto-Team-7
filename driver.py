@@ -3,6 +3,7 @@
 import time
 import random
 import badWorker as BAD
+import goodWorker as GOOD
 
 looping = True
 # Initial header
@@ -20,7 +21,9 @@ workers.append(badWorker1)
 badWorker2 = BAD.badWorker()
 badWorker2.setID(2)
 workers.append(badWorker2)
-
+goodWorker1 = GOOD.goodWorker()
+goodWorker1.setID(3)
+workers.append(goodWorker1)
 # Loop until exit
 while looping:
 	userIn = input("Please enter your chosen input: ")
@@ -28,10 +31,14 @@ while looping:
 		print("Exit signal received, goodbye!")
 		time.sleep(1)
 		looping = False
-	elif userIn == "status": 	# Get the status of every worker
+	elif userIn == "status": # Get the status of every worker
 		print("\nCURRENT STATUS OF ALL WORKERS:\n")
 		for w in workers:
 			print("Worker {}:".format(w.getID()))
+			if w.getID() is 3:
+                        	print("GOOD WORKER!")
+			else:
+				print("BAD WORKER!")
 			print("    Total Tasks Claimed:    ", w.getTotalTasks())
 			print("    Total Successful Tasks: ", w.getCorrectTasks())
 			print("    Total Currency Gained:  ", w.getCurrency())
@@ -54,7 +61,7 @@ while looping:
 				while sorting:
 					print("\nPutting set", oSet, "up for sorting.")
 					time.sleep(random.uniform(0.1, 0.8))	# random sleep to facilitate visibility and randomness
-					rand = random.randint(0,1)	# pick a worker
+					rand = random.randint(0,2)	# pick a worker
 					print("Task taken by worker", rand + 1)
 					workers[rand].addTask(set)
 					rSet = workers[rand].chanceSort()

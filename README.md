@@ -11,8 +11,8 @@ This program acts like a simulation of how cryptocurrency can be doled out to us
 ### driver.py
 Coded by Connor Stine, it is the main engine for the program. It takes input from the user and interprets it to send as an integer array to one of the workers. It checks the worker's work, and pays them in points if successful, or puts the task up again if it was a failure.
 
-### goodWorkers.py //TODO
-Coded by 
+### goodWorkers.py 
+Coded by Matthew Herrada, it produces the sorted solutions with 100% accuracy. These workers are always guaranteed to be payed the highest number of points.
 
 ### badWorker.py
 Coded by Dalton Miller, it handles the faulty logic of the less useful workers. Their solutions are not always correct, leading to a lack of payment for their efforts.
