@@ -35,7 +35,7 @@ class badWorker:
     
     #Sort the 0th int list in numListList queue at badPercent% (default: 60%) 
     # chance for it to sort the int list incorrectly.
-    def chanceSort(self, badPercent=60):
+    def chanceSort(self, badPercent=50):
         chanceVal = random.randint(0,100)
         if (chanceVal <= badPercent):
             #self.totalTasks -= 1
@@ -50,15 +50,11 @@ class badWorker:
             except IndexError:
                 raise IndexError("ID#" + str(self.workerID) + " cannot sort, no tasks!")
     
-    #Sort the intList para incorrectly (reversing the list)
+    #Sort the intList para incorrectly (randomly shuffling)
     def badSort(self, intList):
         #print("badSorting: ", intList)
-        i = (len(intList) - 1)
-        tempList = intList.copy()
-        for element in intList:
-            tempList[i] = element
-            i -= 1
-        return tempList
+        random.shuffle(intList)
+        return intList
     
     #Sort the intList para correctly
     def goodSort(self, intList):
