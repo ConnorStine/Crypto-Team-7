@@ -8,7 +8,7 @@ PURPOSE:
 PARAMETERS/VARIABLES:
     - int workerID - idenctification number for the object
     - int currency - the 'wallet' of the object
-    - int totalTasks - count of tasks remaining to perform
+    - int totalTasks - count of total tasks added to queue
     - int correctTasks - count of tasks correctly performed
     - int numListList - list of int lists to be sorted, a queue of int lists.
 RELEVANT METHODS:
@@ -38,11 +38,18 @@ class badWorker:
     def chanceSort(self, badPercent=60):
         chanceVal = random.randint(0,100)
         if (chanceVal <= badPercent):
-            self.totalTasks -= 1
-            return self.badSort(self.numListList.pop(0))
+            #self.totalTasks -= 1
+            try:
+                return self.badSort(self.numListList.pop(0))
+            except IndexError:
+                raise IndexError("ID#" + str(self.workerID) + " cannot sort, no tasks!")
         else:
-            self.totalTasks -= 1
-            return self.goodSort(self.numListList.pop(0))
+            #self.totalTasks -= 1
+            try:
+                return self.goodSort(self.numListList.pop(0))
+            except IndexError:
+                raise IndexError("ID#" + str(self.workerID) + " cannot sort, no tasks!")
+    
     #Sort the intList para incorrectly (reversing the list)
     def badSort(self, intList):
         #print("badSorting: ", intList)
@@ -52,14 +59,19 @@ class badWorker:
             tempList[i] = element
             i -= 1
         return tempList
+    
     #Sort the intList para correctly
     def goodSort(self, intList):
         #print("goodsorting: ", intList)
         self.correctTasks += 1
         intList.sort()
         return intList
+    
     #Append an int list to the task list
     def addTask(self, intList):
+        for element in intList:
+            if not type(element) is int:
+                raise TypeError("ERROR: List contains NON-INT: " + str(element))
         self.numListList.append(intList)
         self.totalTasks += 1
         
